@@ -1,0 +1,6 @@
+frameworks.txt
+.idea/
+.claude/
+*.pyc
+__pycache__/
+.vscode/
