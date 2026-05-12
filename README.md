@@ -55,8 +55,8 @@ HF-Risk-Optimization/
 
 - **克隆项目**:
   ```bash
-  git clone <项目仓库地址>
-  cd heart-failure-prediction-master
+  git clone https://github.com/xwh90111-coder/HF-Risk-Optimization.git
+  cd HF-Risk-Optimization
   ```
 - **安装依赖**: 建议在Python虚拟环境中执行。项目所需的全部依赖都已在 `requirements.txt` 中列出。
   ```bash
