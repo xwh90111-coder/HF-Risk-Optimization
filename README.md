@@ -6,26 +6,28 @@
 
 ## 项目结构
 
-```
-heart-failure-prediction-master/
+```text
+HF-Risk-Optimization/
 ├── app.py              # Flask后端应用核心
 ├── README.md           # 项目说明文件
 ├── requirements.txt    # Python依赖列表
 ├── data/               # 存放原始数据集
-│   └── heart_failure_clinical_records_dataset.csv
-├── results/            # 存放预处理后的数据
-│   └── preprocessed_heart_failure_data.csv
-├── src/                # 存放数据处理和模型分析的独立脚本
-│   ├── data_preprocessing.py
-│   ├── logistic_regression_analysis.py
-│   └── model_comparison.py
-├── web/                # 存放所有前端文件
-│   ├── index.html      # 前端页面
-│   ├── styles.css      # 页面样式
-│   ├── script.js       # 页面交互逻辑
-│   └── 前端使用说明.md # 前端专项说明
-└── docs/               # 存放项目文档
-    └── .gitkeep
+├── docs/               # 存放项目文档 (.gitkeep用于保持空目录被git追踪)
+├── figures/            # 存放各种模型分析和结果的可视化图表
+├── results/            # 存放预处理后的数据和训练好的模型文件
+├── src/                # 存放核心算法脚本与可视化代码
+│   ├── data_preprocessing.py            # 数据清洗、类别平衡与特征预处理
+│   ├── logistic_regression_analysis.py  # 逻辑回归基线模型的独立分析
+│   ├── model_comparison.py              # 多种基础模型(RF, SVM等)的性能横向对比
+│   ├── model_optimization.py            # 高级模型调优与Stacking集成学习实现
+│   ├── explainability_analysis.py       # 基于SHAP的模型特征重要性与可解释性分析
+│   ├── draw_closed_loop_system.py       # 绘制系统闭环架构流程图
+│   └── draw_stacking_topology_v2.py     # 绘制Stacking集成拓扑结构图
+└── web/                # 存放所有前端文件
+    ├── index.html      # 前端页面
+    ├── styles.css      # 页面样式
+    ├── script.js       # 页面交互逻辑
+    └── 前端使用说明.md # 前端专项说明
 ```
 
 ---
