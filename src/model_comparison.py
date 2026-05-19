@@ -25,8 +25,8 @@ if not os.path.exists(data_path):
 data = pd.read_csv(data_path)
 
 # 特征和目标变量
-X = data.drop('DEATH_EVENT', axis=1)
-y = data['DEATH_EVENT']
+X = data.drop('cardio', axis=1)
+y = data['cardio']
 
 # 数据集划分
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -45,7 +45,7 @@ y_pred_rf = rf_model.predict(X_test)
 y_prob_rf = rf_model.predict_proba(X_test)[:, 1]
 
 # 支持向量机
-svm_model = SVC(probability=True, random_state=42)
+svm_model = SVC(probability=True, random_state=42, max_iter=1000)
 svm_model.fit(X_train, y_train)
 y_pred_svm = svm_model.predict(X_test)
 y_prob_svm = svm_model.predict_proba(X_test)[:, 1]

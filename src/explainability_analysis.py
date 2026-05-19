@@ -23,7 +23,7 @@ if not os.path.exists(model_path):
     model_path = 'results/best_stacking_model.pkl'
 
 data = pd.read_csv(data_path)
-X = data.drop('DEATH_EVENT', axis=1)
+X = data.drop('cardio', axis=1)
 
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
@@ -48,11 +48,11 @@ else:
 
 # 映射简短名称
 feature_mapping = {
-    'age': 'Age', 'creatinine_phosphokinase': 'CPK', 'ejection_fraction': 'EF',
-    'platelets': 'Platelets', 'serum_creatinine': 'Cr', 'serum_sodium': 'Na',
-    'time': 'Time', 'age_creatinine': 'Age*Cr', 'ef_hbp': 'EF*HBP',
-    'anaemia': 'Anaemia', 'diabetes': 'Diabetes', 'high_blood_pressure': 'HBP',
-    'sex': 'Sex', 'smoking': 'Smoking'
+    'age': 'Age', 'height': 'Height', 'weight': 'Weight',
+    'ap_hi': 'Sys_BP', 'ap_lo': 'Dia_BP', 'bmi': 'BMI',
+    'pulse_pressure': 'Pulse_Pressure', 'gender': 'Gender',
+    'cholesterol': 'Chol', 'gluc': 'Glucose', 'smoke': 'Smoke',
+    'alco': 'Alcohol', 'active': 'Active'
 }
 test_sample_renamed = test_sample.rename(columns=feature_mapping)
 
@@ -60,15 +60,15 @@ test_sample_renamed = test_sample.rename(columns=feature_mapping)
 # (1) Summary Plot
 plt.figure(figsize=(10, 6))
 shap.summary_plot(shap_values_to_plot, test_sample_renamed, show=False)
-plt.title('心力衰竭风险预测：特征全局贡献度 (SHAP Summary)', pad=20)
+plt.title('心血管疾病风险预测：特征全局贡献度 (SHAP Summary)', pad=20)
 plt.savefig('../figures/shap_summary_academic.png', bbox_inches='tight')
 plt.close()
 
 # (2) Dependence Plot
 plt.figure(figsize=(10, 6))
 shap.dependence_plot("Age", shap_values_to_plot, test_sample_renamed, 
-                     interaction_index="Cr", show=False)
-plt.title('年龄(Age)与血清肌酐(Cr)的交互效应分析', pad=20)
+                     interaction_index="Sys_BP", show=False)
+plt.title('年龄(Age)与收缩压(Sys_BP)的交互效应分析', pad=20)
 plt.savefig('../figures/shap_dependence_interaction.png', bbox_inches='tight')
 plt.close()
 

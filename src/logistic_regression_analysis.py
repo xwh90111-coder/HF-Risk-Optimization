@@ -22,8 +22,8 @@ if not os.path.exists(data_path):
 data = pd.read_csv(data_path)
 
 # 选择特征和目标变量
-X = data.drop('DEATH_EVENT', axis=1)
-y = data['DEATH_EVENT']
+X = data.drop('cardio', axis=1)
+y = data['cardio']
 
 # 将数据集划分为训练集和测试集
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -35,7 +35,7 @@ model = LogisticRegression()
 model.fit(X_train, y_train)
 
 # 1. 数值型变量的直方图
-numerical_features = ['age', 'creatinine_phosphokinase', 'ejection_fraction', 'platelets', 'serum_creatinine', 'serum_sodium', 'time']
+numerical_features = ['age', 'height', 'weight', 'ap_hi', 'ap_lo', 'bmi', 'pulse_pressure']
 plt.figure(figsize=(15, 10))
 for i, feature in enumerate(numerical_features, 1):
     plt.subplot(3, 3, i)
@@ -46,10 +46,10 @@ plt.savefig('../figures/lr_numerical_distribution.png')
 plt.close()
 
 # 2. 分类变量的计数图
-categorical_features = ['anaemia', 'diabetes', 'high_blood_pressure', 'sex', 'smoking', 'DEATH_EVENT']
+categorical_features = ['gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio']
 plt.figure(figsize=(15, 10))
 for i, feature in enumerate(categorical_features, 1):
-    plt.subplot(2, 3, i)
+    plt.subplot(2, 4, i)
     sns.countplot(x=feature, data=data)
     plt.title(f'Count of {feature}')
 plt.tight_layout()
@@ -60,8 +60,8 @@ plt.close()
 plt.figure(figsize=(15, 10))
 for i, feature in enumerate(numerical_features, 1):
     plt.subplot(3, 3, i)
-    sns.boxplot(x='DEATH_EVENT', y=feature, data=data)
-    plt.title(f'{feature} by DEATH_EVENT')
+    sns.boxplot(x='cardio', y=feature, data=data)
+    plt.title(f'{feature} by cardio')
 plt.tight_layout()
 plt.savefig('../figures/lr_boxplots.png')
 plt.close()

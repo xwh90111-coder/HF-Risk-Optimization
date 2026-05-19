@@ -29,8 +29,8 @@ os.makedirs(FIGURES_DIR, exist_ok=True)
 
 # 1. 加载数据
 data = pd.read_csv(DATA_FILE)
-X = data.drop('DEATH_EVENT', axis=1)
-y = data['DEATH_EVENT']
+X = data.drop('cardio', axis=1)
+y = data['cardio']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=8, stratify=y)
 
@@ -55,7 +55,7 @@ def evaluate_model_comprehensive(model, X_test, y_test):
 # 3. 稳健基模型配置
 rf_base = RandomForestClassifier(n_estimators=100, max_depth=8, random_state=42)
 gb_base = GradientBoostingClassifier(random_state=42)
-svc_base = SVC(probability=True, random_state=42)
+svc_base = SVC(probability=True, random_state=42, max_iter=1000)
 
 # 4. 构建 Stacking (元学习器采用 RidgeClassifier)
 estimators = [('rf', rf_base), ('gb', gb_base), ('svc', svc_base)]
